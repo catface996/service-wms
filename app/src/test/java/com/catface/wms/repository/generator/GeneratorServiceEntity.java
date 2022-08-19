@@ -39,7 +39,7 @@ public class GeneratorServiceEntity extends BaseTest {
 
     @Test
     public void generateAllCode() {
-        generateByTables(serviceNameStartWithI, packageName, "warehouse");
+        generateByTables(serviceNameStartWithI, packageName, "floor");
     }
 
     @Test
