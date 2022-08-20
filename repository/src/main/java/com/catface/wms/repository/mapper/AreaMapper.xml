@@ -22,4 +22,24 @@
         from area where floor_id = #{floorId} limit 0,1
     </select>
 
+    <!-- 分页查询库区 -->
+    <select id="selectOnePage" resultType="com.catface.wms.repository.entity.Area">
+        select
+        <include refid="Base_Column_List"/>
+        from area
+        where client_id = #{param.clientId}
+        <if test="param.warehouseId!=null">
+            and warehouse_id = #{param.warehouseId}
+        </if>
+        <if test="param.floorId!=null">
+            and floor_id = #{param.floorId}
+        </if>
+        <if test="param.areaName!=null and param.areaName!=''">
+            and area_name like concat('%',#{param.areaName},'%')
+        </if>
+        <if test="param.areaCode!=null and param.areaCode!=''">
+            and area_code like concat('%',#{param.areaCode},'%')
+        </if>
+    </select>
+
 </mapper>

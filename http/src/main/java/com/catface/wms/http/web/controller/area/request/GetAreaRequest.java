@@ -29,4 +29,9 @@ public class GetAreaRequest extends PageRequest {
     @ApiModelProperty(value = "楼层ID", example = "343434")
     private Long floorId;
 
+    @ApiModelProperty(value = "库区名称", example = "东1区")
+    private String areaName;
+
+    @ApiModelProperty(value = "库区编码", example = "E1")
+    private String areaCode;
 }
