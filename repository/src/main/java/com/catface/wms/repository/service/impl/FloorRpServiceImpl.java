@@ -17,4 +17,15 @@ import org.springframework.stereotype.Service;
 @Service
 public class FloorRpServiceImpl extends ServiceImpl<FloorMapper, Floor> implements FloorRpService {
 
+    /**
+     * 检查是否在指定仓库下创建了楼层
+     *
+     * @param warehouseId 仓库ID
+     * @return 是否存在楼层
+     */
+    @Override
+    public boolean existFloor(Long warehouseId) {
+        Floor entity = baseMapper.existFloor(warehouseId);
+        return entity != null;
+    }
 }
