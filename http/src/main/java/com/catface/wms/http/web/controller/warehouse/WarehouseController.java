@@ -1,5 +1,6 @@
 package com.catface.wms.http.web.controller.warehouse;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.catface.common.model.JsonResult;
 import com.catface.common.model.PageVO;
 import com.catface.wms.http.config.swagger.SwaggerTagConst;
@@ -9,6 +10,7 @@ import com.catface.wms.http.web.controller.warehouse.request.GetWarehouseRequest
 import com.catface.wms.http.web.controller.warehouse.request.SaveWarehouseRequest;
 import com.catface.wms.http.web.controller.warehouse.response.WarehouseResponse;
 import com.catface.wms.repository.entity.Warehouse;
+import com.catface.wms.repository.param.QueryWarehouseParam;
 import com.catface.wms.service.warehouse.WarehouseService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -45,13 +47,17 @@ public class WarehouseController {
     @ApiOperation(value = "分页查询仓库列表")
     @PostMapping(value = "/public/warehouse/getOnePage")
     public JsonResult<PageVO<WarehouseResponse>> getOnePage(@RequestBody @Valid GetWarehouseRequest request) {
-        return null;
+        QueryWarehouseParam param = WarehouseWebConvert.convert(request);
+        Page<Warehouse> page = warehouseService.getOnePage(param);
+        PageVO<WarehouseResponse> pageVO = WarehouseWebConvert.convert(page);
+        return JsonResult.success(pageVO);
     }
 
     @ApiOperation(value = "删除仓库")
     @PostMapping(value = "/public/warehouse/delete")
     public JsonResult<Boolean> delete(@RequestBody @Valid DeleteWarehouseRequest requests) {
-        return null;
+        warehouseService.delete(requests.getWarehouseId(),requests.getCtxClientId());
+        return JsonResult.success(true);
     }
 
 }

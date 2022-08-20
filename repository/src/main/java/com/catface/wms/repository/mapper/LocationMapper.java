@@ -1,7 +1,8 @@
 package com.catface.wms.repository.mapper;
 
-import com.catface.wms.repository.entity.Location;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.catface.wms.repository.entity.Location;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * <p>
@@ -13,4 +14,11 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface LocationMapper extends BaseMapper<Location> {
 
+    /**
+     * 检查指定仓库下是否存在库位
+     *
+     * @param warehouseId 指定仓库的ID
+     * @return 库位
+     */
+    Location existLocation(@Param("warehouseId") Long warehouseId);
 }

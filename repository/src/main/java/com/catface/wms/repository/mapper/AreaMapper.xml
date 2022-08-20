@@ -4,7 +4,15 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, client_id, warehouse_id, floor_id, area_name, area_code, area_size, created, updated, remark
+        id
+        , client_id, warehouse_id, floor_id, area_name, area_code, area_size, created, updated, remark
     </sql>
+
+    <!-- 检查指定仓库下是否存在库区 -->
+    <select id="existArea" resultType="com.catface.wms.repository.entity.Area">
+        select
+        <include refid="Base_Column_List"/>
+        from area where warehouse_id = #{warehouseId}
+    </select>
 
 </mapper>

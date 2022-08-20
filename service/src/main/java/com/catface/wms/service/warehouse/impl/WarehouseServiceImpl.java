@@ -3,6 +3,9 @@ package com.catface.wms.service.warehouse.impl;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.catface.wms.repository.entity.Warehouse;
 import com.catface.wms.repository.param.QueryWarehouseParam;
+import com.catface.wms.repository.service.AreaRpService;
+import com.catface.wms.repository.service.FloorRpService;
+import com.catface.wms.repository.service.LocationRpService;
 import com.catface.wms.repository.service.WarehouseRpService;
 import com.catface.wms.service.warehouse.WarehouseService;
 import lombok.extern.slf4j.Slf4j;
@@ -19,10 +22,19 @@ public class WarehouseServiceImpl implements WarehouseService {
 
     private final WarehouseRpService warehouseRpService;
 
-    public WarehouseServiceImpl(WarehouseRpService warehouseRpService) {
-        this.warehouseRpService = warehouseRpService;
-    }
+    private final FloorRpService floorRpService;
 
+    private final AreaRpService areaRpService;
+
+    private final LocationRpService locationRpService;
+
+    public WarehouseServiceImpl(WarehouseRpService warehouseRpService, FloorRpService floorRpService,
+                                AreaRpService areaRpService, LocationRpService locationRpService) {
+        this.warehouseRpService = warehouseRpService;
+        this.floorRpService = floorRpService;
+        this.areaRpService = areaRpService;
+        this.locationRpService = locationRpService;
+    }
 
     /**
      * 保存仓库
@@ -47,6 +59,29 @@ public class WarehouseServiceImpl implements WarehouseService {
      */
     @Override
     public void delete(Long warehouseId, Long clientId) {
+
+        // 检查待删除的仓库是否属于执行删除的客户
+        Warehouse entity = warehouseRpService.getById(warehouseId);
+        if (entity==null){
+            log.warn("待删除的仓库不存在,仓库ID:{}",warehouseId);
+            return;
+        }
+        Assert.state(entity.getClientId().equals(clientId),"禁止删除其他客户的仓库");
+
+        // 检查仓库是否有创建楼层
+        boolean existFloor = floorRpService.existFloor(warehouseId);
+        Assert.state(!existFloor,"需删除仓库的楼层后,再进行仓库的删除");
+
+        // 检查仓库是否有创建库区
+        boolean existArea = areaRpService.existArea(warehouseId);
+        Assert.state(!existArea,"需删除仓库的库区后,再进行仓库的删除");
+
+        // 检查仓库是否有创建库位
+        boolean existLocation = locationRpService.existLocation(warehouseId);
+        Assert.state(!existLocation,"需删除仓库的库位后,再进行仓库的删除");
+
+        // 执行仓库删除动作
+        warehouseRpService.removeById(warehouseId);
 
     }
 
