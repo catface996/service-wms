@@ -4,7 +4,19 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, client_id, warehouse_name, province_code, province_name, city_code, city_name, county_code, county_name, street_code, street_name, detail_address, creator, modifier, created, updated, remark
+        id
+        , client_id, warehouse_name, province_code, province_name, city_code, city_name, county_code, county_name, street_code, street_name, detail_address, creator, modifier, created, updated, remark
     </sql>
+
+    <!-- 分页查询仓库列表 -->
+    <select id="selectOnePage" resultType="com.catface.wms.repository.entity.Warehouse">
+        select
+        <include refid="Base_Column_List"/>
+        from warehouse
+        where client_id = #{param.clientId}
+        <if test="param.warehouseName!=null and param.warehouseName!=''">
+            and warehouse_name like concat('%',#{param.warehouseName},'%')
+        </if>
+    </select>
 
 </mapper>

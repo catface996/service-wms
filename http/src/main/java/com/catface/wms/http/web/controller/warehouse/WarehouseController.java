@@ -3,10 +3,13 @@ package com.catface.wms.http.web.controller.warehouse;
 import com.catface.common.model.JsonResult;
 import com.catface.common.model.PageVO;
 import com.catface.wms.http.config.swagger.SwaggerTagConst;
+import com.catface.wms.http.web.controller.warehouse.convert.WarehouseWebConvert;
 import com.catface.wms.http.web.controller.warehouse.request.DeleteWarehouseRequest;
 import com.catface.wms.http.web.controller.warehouse.request.GetWarehouseRequest;
 import com.catface.wms.http.web.controller.warehouse.request.SaveWarehouseRequest;
 import com.catface.wms.http.web.controller.warehouse.response.WarehouseResponse;
+import com.catface.wms.repository.entity.Warehouse;
+import com.catface.wms.service.warehouse.WarehouseService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -25,10 +28,18 @@ import javax.validation.Valid;
 @RestController
 public class WarehouseController {
 
+    private final WarehouseService warehouseService;
+
+    public WarehouseController(WarehouseService warehouseService) {
+        this.warehouseService = warehouseService;
+    }
+
     @ApiOperation(value = "保存仓库")
     @PostMapping(value = "/public/warehouse/save")
     public JsonResult<Boolean> save(@RequestBody @Valid SaveWarehouseRequest request) {
-        return null;
+        Warehouse entity = WarehouseWebConvert.convert(request);
+        warehouseService.save(entity);
+        return JsonResult.success(true);
     }
 
     @ApiOperation(value = "分页查询仓库列表")
