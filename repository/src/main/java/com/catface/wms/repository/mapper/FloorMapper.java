@@ -1,8 +1,7 @@
 package com.catface.wms.repository.mapper;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.catface.wms.repository.entity.Floor;
-import org.apache.ibatis.annotations.Param;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
  * <p>
@@ -10,15 +9,8 @@ import org.apache.ibatis.annotations.Param;
  * </p>
  *
  * @author catface
- * @since 2022-08-19
+ * @since 2022-08-20
  */
 public interface FloorMapper extends BaseMapper<Floor> {
 
-    /**
-     * 检查是否在指定仓库下存在漏乘
-     *
-     * @param warehouseId 仓库ID
-     * @return 楼层
-     */
-    Floor existFloor(@Param("warehouseId") Long warehouseId);
 }

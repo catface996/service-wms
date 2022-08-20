@@ -4,15 +4,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id
-        , client_id, warehouse_id, floor_name, floor_code, area_size, height, created, updated, remark
+        id, client_id, warehouse_id, floor_name, floor_code, area_size, height, creator, modifier, created, updated, remark
     </sql>
-
-    <!-- 检查是否在指定仓库下存在楼层 -->
-    <select id="existFloor" resultType="com.catface.wms.repository.entity.Floor">
-        select
-        <include refid="Base_Column_List"/>
-        from floor where warehouse_id= #{warehouseId} limit 0,1
-    </select>
 
 </mapper>

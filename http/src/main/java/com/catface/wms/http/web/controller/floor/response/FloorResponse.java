@@ -1,32 +1,22 @@
-package com.catface.wms.repository.entity;
+package com.catface.wms.http.web.controller.floor.response;
 
 import com.baomidou.mybatisplus.annotation.IdType;
-import java.util.Date;
-import com.baomidou.mybatisplus.annotation.Version;
 import com.baomidou.mybatisplus.annotation.TableId;
-import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
+
+import java.util.Date;
 
 /**
- * <p>
- * 仓库楼层
- * </p>
- *
  * @author catface
- * @since 2022-08-20
+ * @since 2022/8/20
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
-@ApiModel(value="Floor对象", description="仓库楼层")
-public class Floor implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+@ApiModel(description = "楼层模型")
+public class FloorResponse {
 
     @ApiModelProperty(value = "楼层ID")
-    @TableId(value = "id", type = IdType.ASSIGN_ID)
     private Long id;
 
     @ApiModelProperty(value = "所属客户ID")
@@ -61,6 +51,4 @@ public class Floor implements Serializable {
 
     @ApiModelProperty(value = "备注")
     private String remark;
-
-
 }
