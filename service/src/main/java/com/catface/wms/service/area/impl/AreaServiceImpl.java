@@ -57,14 +57,14 @@ public class AreaServiceImpl implements AreaService {
             Floor floor = floorRpService.getById(entity.getFloorId());
             Assert.notNull(floor, "库区所属楼层不存在");
             Assert.state(floor.getClientId().equals(entity.getClientId()), "禁止在其他客户的楼层中创建库区");
-            Assert.state(floor.getWarehouseId().equals(warehouse.getId()),"楼层所属仓库与所选仓库不一致");
+            Assert.state(floor.getWarehouseId().equals(warehouse.getId()), "楼层所属仓库与所选仓库不一致");
         }
 
         // 检查区域所属客户是否与已经存在的区域的客户一致
         if (entity.getId() != null) {
             Area areaExist = areaRpService.getById(entity.getId());
-            Assert.notNull(areaExist,"待更新的库区不存在");
-            Assert.state(areaExist.getClientId().equals(entity.getClientId()),"禁止修改其他客户的库区");
+            Assert.notNull(areaExist, "待更新的库区不存在");
+            Assert.state(areaExist.getClientId().equals(entity.getClientId()), "禁止修改其他客户的库区");
         }
 
         // 执行保存或者更新库区
@@ -90,6 +90,6 @@ public class AreaServiceImpl implements AreaService {
      */
     @Override
     public Page<Area> queryOnePage(QueryAreaParam param) {
-        return null;
+        return areaRpService.queryOnePage(param);
     }
 }

@@ -1,11 +1,15 @@
 package com.catface.wms.repository.service.impl;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.catface.wms.repository.entity.Area;
 import com.catface.wms.repository.mapper.AreaMapper;
+import com.catface.wms.repository.param.QueryAreaParam;
 import com.catface.wms.repository.service.AreaRpService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * <p>
@@ -40,5 +44,18 @@ public class AreaRpServiceImpl extends ServiceImpl<AreaMapper, Area> implements 
     public boolean existAreaByFloor(Long floorId) {
         Area entity = baseMapper.existAreaByFloor(floorId);
         return entity != null;
+    }
+
+    /**
+     * 分页查询库区
+     *
+     * @param param 客户ID
+     * @return 库区列表
+     */
+    @Override
+    public Page<Area> queryOnePage(QueryAreaParam param) {
+        List<Area> list = baseMapper.selectOnePage(param);
+        param.setRecords(list);
+        return param;
     }
 }

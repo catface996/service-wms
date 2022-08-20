@@ -1,5 +1,6 @@
 package com.catface.wms.http.web.controller.area;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.catface.common.model.JsonResult;
 import com.catface.common.model.PageVO;
 import com.catface.wms.http.config.swagger.SwaggerTagConst;
@@ -47,8 +48,9 @@ public class AreaController {
     @PostMapping(value = "/public/area/getOnePage")
     public JsonResult<PageVO<AreaResponse>> getOnePage(@RequestBody @Valid GetAreaRequest request) {
         QueryAreaParam param = AreaWebConvert.convert(request);
-        areaService.queryOnePage(param);
-        return JsonResult.success();
+        Page<Area> page = areaService.queryOnePage(param);
+        PageVO<AreaResponse> pageVO = AreaWebConvert.convert(page);
+        return JsonResult.success(pageVO);
     }
 
     @ApiOperation(value = "删除库区")

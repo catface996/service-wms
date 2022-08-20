@@ -1,7 +1,9 @@
 package com.catface.wms.repository.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.catface.wms.repository.entity.Area;
+import com.catface.wms.repository.param.QueryAreaParam;
 
 /**
  * <p>
@@ -28,5 +30,13 @@ public interface AreaRpService extends IService<Area> {
      * @return true:存在库区;false:不存在库区;
      */
     boolean existAreaByFloor(Long floorId);
+
+    /**
+     * 分页查询库区
+     *
+     * @param param 客户ID
+     * @return 库区列表
+     */
+    Page<Area> queryOnePage(QueryAreaParam param);
 
 }
