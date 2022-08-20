@@ -80,6 +80,22 @@ public class AreaServiceImpl implements AreaService {
     @Override
     public void delete(Long areaId, Long clientId) {
 
+        // 检查库区是否存在
+        Area areaExist = areaRpService.getById(areaId);
+        if (areaExist==null){
+            log.warn("待删除的库区不存在,库区ID:{}",areaId);
+            return;
+        }
+
+        // 检查待删除的库区是否属于当前操作的客户
+        Assert.state(areaExist.getClientId().equals(clientId), "禁止删除其他客户的库区");
+
+        // 检查当前库区是否有库位存在
+        boolean existLocation = locationRpService.existLocationByArea(areaId);
+        Assert.state(!existLocation, "删除库区上的库位后,再删除库区");
+
+        // 执行删除动作
+        areaRpService.removeById(areaId);
     }
 
     /**
