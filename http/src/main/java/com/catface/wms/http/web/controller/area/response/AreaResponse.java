@@ -1,32 +1,20 @@
-package com.catface.wms.repository.entity;
+package com.catface.wms.http.web.controller.area.response;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
-import java.io.Serializable;
 import java.util.Date;
 
 /**
- * <p>
- * 库区
- * </p>
- *
  * @author catface
- * @since 2022-08-19
+ * @since 2022/8/20
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
-@ApiModel(value = "Area对象", description = "库区")
-public class Area implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+@ApiModel(description = "库区模型")
+public class AreaResponse {
 
     @ApiModelProperty(value = "库区ID，主键")
-    @TableId(value = "id", type = IdType.ASSIGN_ID)
     private Long id;
 
     @ApiModelProperty(value = "所属客户ID")
@@ -61,6 +49,4 @@ public class Area implements Serializable {
 
     @ApiModelProperty(value = "备注")
     private String remark;
-
-
 }
