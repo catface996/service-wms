@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
  * </p>
  *
  * @author catface
- * @since 2022-08-19
+ * @since 2022-08-20
  */
 @Service
 public class WarehouseRpServiceImpl extends ServiceImpl<WarehouseMapper, Warehouse> implements WarehouseRpService {

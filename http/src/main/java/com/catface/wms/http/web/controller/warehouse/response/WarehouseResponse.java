@@ -1,32 +1,22 @@
-package com.catface.wms.repository.entity;
+package com.catface.wms.http.web.controller.warehouse.response;
 
 import com.baomidou.mybatisplus.annotation.IdType;
-import java.util.Date;
-import com.baomidou.mybatisplus.annotation.Version;
 import com.baomidou.mybatisplus.annotation.TableId;
-import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
+
+import java.util.Date;
 
 /**
- * <p>
- * 仓库
- * </p>
- *
  * @author catface
- * @since 2022-08-20
+ * @since 2022/8/20
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
-@ApiModel(value="Warehouse对象", description="仓库")
-public class Warehouse implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+@ApiModel(description = "仓库模型")
+public class WarehouseResponse {
 
     @ApiModelProperty(value = "仓库ID，主键")
-    @TableId(value = "id", type = IdType.ASSIGN_ID)
     private Long id;
 
     @ApiModelProperty(value = "所属客户ID")
@@ -76,6 +66,4 @@ public class Warehouse implements Serializable {
 
     @ApiModelProperty(value = "备注")
     private String remark;
-
-
 }

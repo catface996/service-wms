@@ -12,5 +12,13 @@ public class SwaggerTagConst {
 
     public static final String SAY_HELLO = "打招呼";
 
+    public static final String WAREHOUSE = "仓库";
+
+    public static final String AREA = "库区";
+
+    public static final String FLOOR = "楼层";
+
+    public static final String LOCATION = "库位";
+
 
 }

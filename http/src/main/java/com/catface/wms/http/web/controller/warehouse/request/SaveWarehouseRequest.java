@@ -1,36 +1,25 @@
-package com.catface.wms.repository.entity;
+package com.catface.wms.http.web.controller.warehouse.request;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import java.util.Date;
-import com.baomidou.mybatisplus.annotation.Version;
-import com.baomidou.mybatisplus.annotation.TableId;
-import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 /**
- * <p>
- * 仓库
- * </p>
- *
  * @author catface
- * @since 2022-08-20
+ * @since 2022/8/20
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
-@ApiModel(value="Warehouse对象", description="仓库")
-public class Warehouse implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+@ApiModel(description = "保存仓库请求")
+public class SaveWarehouseRequest {
 
     @ApiModelProperty(value = "仓库ID，主键")
-    @TableId(value = "id", type = IdType.ASSIGN_ID)
     private Long id;
 
-    @ApiModelProperty(value = "所属客户ID")
-    private Long clientId;
+    @ApiModelProperty(value = "当前会话中的客户ID")
+    private Long ctxClientId;
+
+    @ApiModelProperty(value = "当前会话中的用户ID")
+    private String ctxUserId;
 
     @ApiModelProperty(value = "仓库名称")
     private String warehouseName;
@@ -62,20 +51,7 @@ public class Warehouse implements Serializable {
     @ApiModelProperty(value = "详细地址")
     private String detailAddress;
 
-    @ApiModelProperty(value = "创建人")
-    private Long creator;
-
-    @ApiModelProperty(value = "修改人")
-    private Long modifier;
-
-    @ApiModelProperty(value = "创建时间")
-    private Date created;
-
-    @ApiModelProperty(value = "修改时间")
-    private Date updated;
-
     @ApiModelProperty(value = "备注")
     private String remark;
-
 
 }
