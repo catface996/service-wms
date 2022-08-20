@@ -4,7 +4,8 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, client_id, warehouse_id, floor_name, floor_code, area_size, height, creator, modifier, created, updated, remark
+        id
+        , client_id, warehouse_id, floor_name, floor_code, area_size, height, creator, modifier, created, updated, remark
     </sql>
 
     <!-- 检查是否在指定仓库下存在楼层 -->
@@ -12,6 +13,20 @@
         select
         <include refid="Base_Column_List"/>
         from floor where warehouse_id= #{warehouseId} limit 0,1
+    </select>
+
+    <!-- 分页查询楼层 -->
+    <select id="selectOnePage" resultType="com.catface.wms.repository.entity.Floor">
+        select
+        <include refid="Base_Column_List"/>
+        from floor
+        where client_id = #{param.clientId}
+        <if test="param.warehouseId!=null">
+            and warehouse_id = #{param.warehouseId}
+        </if>
+        <if test="param.floorName!=null and param.floorName!=''">
+            and floor_name like concat('%',#{param.floorName},'%')
+        </if>
     </select>
 
 </mapper>

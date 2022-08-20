@@ -1,5 +1,6 @@
 package com.catface.wms.http.web.controller.floor;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.catface.common.model.JsonResult;
 import com.catface.common.model.PageVO;
 import com.catface.wms.http.config.swagger.SwaggerTagConst;
@@ -9,6 +10,7 @@ import com.catface.wms.http.web.controller.floor.request.GetFloorRequest;
 import com.catface.wms.http.web.controller.floor.request.SaveFloorRequest;
 import com.catface.wms.http.web.controller.floor.response.FloorResponse;
 import com.catface.wms.repository.entity.Floor;
+import com.catface.wms.repository.param.QueryFloorParam;
 import com.catface.wms.service.floor.FloorService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import java.util.List;
 
 /**
  * @author catface
@@ -46,7 +49,10 @@ public class FloorController {
     @ApiOperation(value = "分页查询楼层")
     @PostMapping(value = "/public/floor/getOnePage")
     public JsonResult<PageVO<FloorResponse>> getOnePage(@RequestBody @Valid GetFloorRequest request) {
-        return JsonResult.success();
+        QueryFloorParam param = FloorWebConvert.convert(request);
+        Page<Floor> page = floorService.queryOnePage(param);
+        PageVO<FloorResponse> pageVO = FloorWebConvert.convert(page);
+        return JsonResult.success(pageVO);
     }
 
     @ApiOperation(value = "删除楼层")

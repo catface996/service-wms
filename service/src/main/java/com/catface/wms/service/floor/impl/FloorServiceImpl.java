@@ -54,7 +54,7 @@ public class FloorServiceImpl implements FloorService {
         // 检查所属仓库的客户ID是否与当前客户ID一致
         if (entity.getWarehouseId() != null) {
             Warehouse warehouse = warehouseRpService.getById(entity.getWarehouseId());
-            Assert.notNull(warehouse,"楼层所属仓库不存在");
+            Assert.notNull(warehouse, "楼层所属仓库不存在");
             Assert.state(warehouse.getClientId().equals(entity.getClientId()), "禁止使用其他客户的仓库");
         }
 
@@ -81,6 +81,6 @@ public class FloorServiceImpl implements FloorService {
      */
     @Override
     public Page<Floor> queryOnePage(QueryFloorParam param) {
-        return null;
+        return floorRpService.queryOnePage(param);
     }
 }

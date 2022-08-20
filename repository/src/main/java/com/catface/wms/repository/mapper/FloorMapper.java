@@ -1,8 +1,11 @@
 package com.catface.wms.repository.mapper;
 
-import com.catface.wms.repository.entity.Floor;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.catface.wms.repository.entity.Floor;
+import com.catface.wms.repository.param.QueryFloorParam;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * <p>
@@ -21,4 +24,12 @@ public interface FloorMapper extends BaseMapper<Floor> {
      * @return 楼层
      */
     Floor existFloor(@Param("warehouseId") Long warehouseId);
+
+    /**
+     * 分页查询楼层
+     *
+     * @param param 客户ID,仓库ID,楼层名称,分页信息
+     * @return 楼层列表
+     */
+    List<Floor> selectOnePage(@Param("param") QueryFloorParam param);
 }
