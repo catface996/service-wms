@@ -58,6 +58,7 @@ public class FloorController {
     @ApiOperation(value = "删除楼层")
     @PostMapping(value = "/public/floor/delete")
     public JsonResult<Boolean> delete(@RequestBody @Valid DeleteFloorRequest request) {
+        floorService.delete(request.getFloorId(),request.getCtxClientId());
         return JsonResult.success(true);
     }
 

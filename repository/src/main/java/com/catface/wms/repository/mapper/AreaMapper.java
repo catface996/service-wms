@@ -19,5 +19,12 @@ public interface AreaMapper extends BaseMapper<Area> {
      * @param warehouseId 指定的仓库ID
      * @return 库区
      */
-    Area existArea(@Param("warehouseId") Long warehouseId);
+    Area existAreaByWarehouse(@Param("warehouseId") Long warehouseId);
+
+    /**
+     * 检查指定楼层下是否存在库区
+     * @param floorId 指定楼层ID
+     * @return 库区
+     */
+    Area existAreaByFloor(@Param("floorId") Long floorId);
 }

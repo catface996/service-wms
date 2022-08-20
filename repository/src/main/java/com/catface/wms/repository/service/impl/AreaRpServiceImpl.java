@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.catface.wms.repository.entity.Area;
 import com.catface.wms.repository.mapper.AreaMapper;
 import com.catface.wms.repository.service.AreaRpService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 /**
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
  * @author catface
  * @since 2022-08-19
  */
+@Slf4j
 @Service
 public class AreaRpServiceImpl extends ServiceImpl<AreaMapper, Area> implements AreaRpService {
 
@@ -23,8 +25,20 @@ public class AreaRpServiceImpl extends ServiceImpl<AreaMapper, Area> implements 
      * @param warehouseId 指定的仓库ID
      * @return true:存在库区;false:不存在库区;
      */
-    public boolean existArea(Long warehouseId) {
-        Area entity = baseMapper.existArea(warehouseId);
+    public boolean existAreaByWarehouse(Long warehouseId) {
+        Area entity = baseMapper.existAreaByWarehouse(warehouseId);
+        return entity != null;
+    }
+
+    /**
+     * 检查指定楼层下是否存在库区
+     *
+     * @param floorId 指定楼层ID
+     * @return true:存在库区;false:不存在库区;
+     */
+    @Override
+    public boolean existAreaByFloor(Long floorId) {
+        Area entity = baseMapper.existAreaByFloor(floorId);
         return entity != null;
     }
 }

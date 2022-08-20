@@ -1,8 +1,5 @@
 package com.catface.wms.repository.service;
 
-import java.util.List;
-
-import com.catface.wms.repository.entity.DemoTable;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,21 +18,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 public class TestRpServiceTest {
 
     @Autowired
-    private DemoTableRpService demoTableRpService;
-
-    @Autowired
     private StringRedisTemplate stringRedisTemplate;
-
-    @Test
-    public void queryByUserName() {
-        DemoTable demoTable = new DemoTable();
-        demoTable.setAge(1);
-        demoTable.setName("xx");
-        demoTableRpService.save(demoTable);
-
-        List<DemoTable> list = demoTableRpService.queryByName("xx");
-        log.info("result:{}", list);
-    }
 
     @Test
     public void testRedis() {

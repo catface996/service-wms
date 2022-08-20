@@ -9,10 +9,24 @@
     </sql>
 
     <!-- 指定仓库下是否存在库位 -->
-    <select id="existLocation" resultType="com.catface.wms.repository.entity.Location">
+    <select id="existLocationByWarehouse" resultType="com.catface.wms.repository.entity.Location">
         select
         <include refid="Base_Column_List"/>
-        from location where warehouse_id = #{warehouseId}
+        from location where warehouse_id = #{warehouseId} limit 0,1
+    </select>
+
+    <!-- 检查指定楼层下是否存在库位 -->
+    <select id="existLocationByFloor" resultType="com.catface.wms.repository.entity.Location">
+        select
+        <include refid="Base_Column_List"/>
+        from location where floor_id = #{floorId} limit 0,1
+    </select>
+
+    <!-- 检查指定库区下是否存在库位 -->
+    <select id="existLocationByArea" resultType="com.catface.wms.repository.entity.Location">
+        select
+        <include refid="Base_Column_List"/>
+        from location where area_id = #{areaId} limit 0,1
     </select>
 
 

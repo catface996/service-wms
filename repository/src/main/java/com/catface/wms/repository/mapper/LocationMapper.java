@@ -20,5 +20,22 @@ public interface LocationMapper extends BaseMapper<Location> {
      * @param warehouseId 指定仓库的ID
      * @return 库位
      */
-    Location existLocation(@Param("warehouseId") Long warehouseId);
+    Location existLocationByWarehouse(@Param("warehouseId") Long warehouseId);
+
+    /**
+     * 检查指定楼层下是否存在库位
+     *
+     * @param floorId 指定的楼层ID
+     * @return 库位
+     */
+    Location existLocationByFloor(@Param("floorId") Long floorId);
+
+    /**
+     * 检查指定库区下是否存在库位
+     *
+     * @param areaId 指定库区ID
+     * @return 库位
+     */
+    Location existLocationByArea(@Param("areaId") Long areaId);
+
 }

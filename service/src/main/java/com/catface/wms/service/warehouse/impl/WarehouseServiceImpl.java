@@ -73,11 +73,11 @@ public class WarehouseServiceImpl implements WarehouseService {
         Assert.state(!existFloor,"需删除仓库的楼层后,再进行仓库的删除");
 
         // 检查仓库是否有创建库区
-        boolean existArea = areaRpService.existArea(warehouseId);
+        boolean existArea = areaRpService.existAreaByWarehouse(warehouseId);
         Assert.state(!existArea,"需删除仓库的库区后,再进行仓库的删除");
 
         // 检查仓库是否有创建库位
-        boolean existLocation = locationRpService.existLocation(warehouseId);
+        boolean existLocation = locationRpService.existLocationByWarehouse(warehouseId);
         Assert.state(!existLocation,"需删除仓库的库位后,再进行仓库的删除");
 
         // 执行仓库删除动作

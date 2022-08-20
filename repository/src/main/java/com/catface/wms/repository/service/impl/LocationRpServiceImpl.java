@@ -27,8 +27,34 @@ public class LocationRpServiceImpl extends ServiceImpl<LocationMapper, Location>
      * @return 库位
      */
     @Override
-    public boolean existLocation(Long warehouseId) {
-        Location entity = baseMapper.existLocation(warehouseId);
+    public boolean existLocationByWarehouse(Long warehouseId) {
+        Location entity = baseMapper.existLocationByWarehouse(warehouseId);
         return entity != null;
     }
+
+    /**
+     * 检查指定楼层是否存在库位
+     *
+     * @param floorId 指定的楼层
+     * @return 库位
+     */
+    @Override
+    public boolean existLocationByFloor(Long floorId) {
+        Location entity = baseMapper.existLocationByFloor(floorId);
+        return entity != null;
+    }
+
+    /**
+     * 检查指定库区是否存在库位
+     *
+     * @param areaId 指定的库区ID
+     * @return 库位
+     */
+    @Override
+    public boolean existLocationByArea(Long areaId) {
+        Location entity = baseMapper.existLocationByArea(areaId);
+        return entity != null;
+    }
+
+
 }

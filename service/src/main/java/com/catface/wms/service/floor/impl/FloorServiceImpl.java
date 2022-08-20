@@ -71,6 +71,24 @@ public class FloorServiceImpl implements FloorService {
     @Override
     public void delete(Long floorId, Long clientId) {
 
+        // 检查楼层是否存在
+        Floor entity = floorRpService.getById(floorId);
+        if (entity == null) {
+            log.warn("待删除的楼层不存在,楼层ID:{}", floorId);
+            return;
+        }
+        // 检查楼层所属客户是否与执行删除的客户一致
+        Assert.state(entity.getClientId().equals(clientId),"禁止删除其他客户的库区");
+
+        // 检查楼层是否有库区或者库位存在
+        boolean existArea = areaRpService.existAreaByFloor(floorId);
+        Assert.state(!existArea,"删除楼层中的库区后,再删除楼层");
+
+        boolean existLocation = locationRpService.existLocationByFloor(floorId);
+        Assert.state(!existLocation,"删除楼层中的库位后,再删除楼层");
+
+        // 执行删除楼层的动作
+        floorRpService.removeById(floorId);
     }
 
     /**
